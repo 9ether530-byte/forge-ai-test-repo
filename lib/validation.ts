@@ -1,0 +1,4 @@
+import { z } from 'zod';
+export const orderSchema = z.object({ businessName: z.string().trim().min(2).max(200), contactName: z.string().trim().min(2).max(200), email: z.string().email().max(320) });
+export const intakeSchema = z.object({ city: z.string().trim().min(1).max(120), serviceAreas: z.string().trim().min(1).max(500), services: z.string().trim().min(1).max(1000), idealCustomer: z.string().trim().min(1).max(1000), differentiators: z.string().trim().min(1).max(1500), website: z.string().max(500).default(''), phone: z.string().max(50).default(''), callToAction: z.string().trim().min(1).max(300), avoid: z.string().max(1000).default(''), tone: z.string().max(200).default('helpful and professional'), customerQuestions: z.string().trim().min(1).max(2000) });
+export type Intake = z.infer<typeof intakeSchema>;
