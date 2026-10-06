@@ -1,0 +1,3 @@
+import { describe, expect, it } from 'vitest';
+import { generateConservativePack } from '@/lib/content-pack';
+describe('content pack generator', () => { it('returns the locked deliverable counts', () => { const p = generateConservativePack({ businessName: 'Bright Clean', city: 'Austin', services: 'home cleaning', tone: 'helpful', callToAction: 'Contact us', customerQuestions: 'How does it work?\nWhat areas do you serve?' }); expect(p.googlePosts).toHaveLength(7); expect(p.reviewResponses.positive).toHaveLength(5); expect(p.reviewResponses.neutral).toHaveLength(3); expect(p.reviewResponses.negative).toHaveLength(2); expect(p.socialCaptions).toHaveLength(5); }); });
