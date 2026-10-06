@@ -1,0 +1,6 @@
+generator client { provider = "prisma-client-js" }
+datasource db { provider = "postgresql" url = env("DATABASE_URL") }
+
+enum OrderStatus { AWAITING_PAYMENT PAID INTAKE_RECEIVED IN_PRODUCTION QA_READY DELIVERED CANCELLED }
+model Order { id String @id @default(cuid()); publicId String @unique; status OrderStatus @default(AWAITING_PAYMENT); businessName String; contactName String; email String; amountCents Int @default(3500); intake Json?; output Json?; paymentReference String? @unique; createdAt DateTime @default(now()); updatedAt DateTime @updatedAt; auditLogs AuditLog[]; @@index([email]); @@index([status]) }
+model AuditLog { id String @id @default(cuid()); orderId String; action String; metadata Json?; createdAt DateTime @default(now()); order Order @relation(fields: [orderId], references: [id], onDelete: Cascade); @@index([orderId, createdAt]) }
